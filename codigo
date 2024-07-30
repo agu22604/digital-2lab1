@@ -1,0 +1,276 @@
+//BE3023 DIGITAL 2
+//Aguilar 
+//Lab2 digital
+//Micro: ESP32 DEV Kit 1.0
+//....
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Importanción de librerias
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#include <Arduino.h>
+
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Variables globales
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+int leds[]={25,26,27,14};
+
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Definiciones
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#define LED1 25
+#define LED2 26
+#define LED3 27
+#define LED4 14
+#define BT1 18
+#define BT2 19
+#define BT3 21
+int Boton1, Boton2, Boton3, mas, menos, var;
+int cont=0; 
+int i;
+uint8_t rebote= LOW;
+
+
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Variables globales
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 
+
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Prototipos de función
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Función de configuración
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// put function declarations here:
+
+
+void setup() {
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  pinMode(LED4, OUTPUT);
+  
+  pinMode(BT1, INPUT);
+  pinMode(BT2, INPUT_PULLDOWN);
+  pinMode(BT3, INPUT_PULLUP);
+ 
+
+  digitalWrite(LED1, LOW);
+  digitalWrite(LED2, LOW);
+  digitalWrite(LED3, LOW);
+  digitalWrite(LED4, LOW);
+
+
+
+}
+
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//loop principal
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+void loop() {
+
+  
+
+ Boton1=digitalRead(BT1); // Normalmente 0 cuando apacha esta en 1
+ Boton2=digitalRead(BT2); // Normalmente 0 cuando apacha esta en 1
+ Boton3=digitalRead(BT3);  // Normalmente 1 cuando apacha esta en 0
+
+
+  if (Boton3 == HIGH) {
+//el contador conforme aumenta lo muestra en binario. 
+      if (Boton1==HIGH){
+
+        cont++;
+        rebote=Boton1; //para evitar el rebote
+                      }
+
+      if (Boton2==HIGH){
+          
+          cont--;
+          rebote=Boton2;//para evitar el rebote
+                        }
+
+      if (15 < cont){
+        cont=0;
+      }
+
+      if (cont < 0){
+        cont=15;
+      }
+
+      lucesContador();
+      delay(200);
+     
+   
+      
+  
+ } else {
+
+   if (Boton1==HIGH){
+//el contador conforme aumenta  decadas lo muestra en los leds
+      cont++;
+      rebote=Boton1; //para evitar el rebote
+        
+                    }
+
+    if (Boton2==HIGH){
+        
+        cont--;
+        rebote=Boton2; //para evitar el rebote
+          
+                      }
+
+    if (4 < cont){
+       cont=0;
+    }
+
+    if (cont < 0){
+       cont=4;
+    }
+
+    lucesContador2();//esta función enciende los leds según el contador
+    delay(200);
+  
+
+      
+
+ }
+}
+
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//Subrutinas
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+void lucesContador (){
+  
+                    switch (cont) {
+                                    case 1:
+                                      digitalWrite(LED1, HIGH);
+                                      digitalWrite(LED2, LOW);
+                                      digitalWrite(LED3, LOW);
+                                      digitalWrite(LED4, LOW);
+                                      break;
+                                    case 2:
+                                      digitalWrite(LED1, LOW);
+                                      digitalWrite(LED2, HIGH);
+                                      digitalWrite(LED3, LOW);
+                                      digitalWrite(LED4, LOW);
+                                      break;
+                                    case 3:
+                                      digitalWrite(LED1, HIGH);
+                                      digitalWrite(LED2, HIGH);
+                                      digitalWrite(LED3, LOW);
+                                      digitalWrite(LED4, LOW);
+                                      break;
+                                    case 4:
+                                      digitalWrite(LED1, LOW);
+                                      digitalWrite(LED2, LOW);
+                                      digitalWrite(LED3, HIGH);
+                                      digitalWrite(LED4, LOW);
+                                      break;
+                                    case 5:
+                                      digitalWrite(LED1, HIGH);
+                                      digitalWrite(LED2, LOW);
+                                      digitalWrite(LED3, HIGH);
+                                      digitalWrite(LED4, LOW);
+                                      break;
+                                    case 6:
+                                      digitalWrite(LED1, LOW);
+                                      digitalWrite(LED2, HIGH);
+                                      digitalWrite(LED3, HIGH);
+                                      digitalWrite(LED4, LOW);
+                                      break;
+                                    case 7:
+                                      digitalWrite(LED1, HIGH);
+                                      digitalWrite(LED2, HIGH);
+                                      digitalWrite(LED3, HIGH);
+                                      digitalWrite(LED4, LOW);
+                                      break;
+                                    case 8:
+                                      digitalWrite(LED1, LOW);
+                                      digitalWrite(LED2, LOW);
+                                      digitalWrite(LED3, LOW);
+                                      digitalWrite(LED4, HIGH);
+                                      break;
+                                    case 9:
+                                      digitalWrite(LED1, HIGH);
+                                      digitalWrite(LED2, LOW);
+                                      digitalWrite(LED3, LOW);
+                                      digitalWrite(LED4, HIGH);
+                                      break;
+                                    case 10:
+                                      digitalWrite(LED1, LOW);
+                                      digitalWrite(LED2, HIGH);
+                                      digitalWrite(LED3, LOW);
+                                      digitalWrite(LED4, HIGH);
+                                      break;
+                                    case 11:
+                                      digitalWrite(LED1, HIGH);
+                                      digitalWrite(LED2, HIGH);
+                                      digitalWrite(LED3, LOW);
+                                      digitalWrite(LED4, HIGH);
+                                      break;
+                                    case 12:
+                                      digitalWrite(LED1, LOW);
+                                      digitalWrite(LED2, LOW);
+                                      digitalWrite(LED3, HIGH);
+                                      digitalWrite(LED4, HIGH);
+                                       break;
+                                    case 13:
+                                      digitalWrite(LED1, HIGH);
+                                      digitalWrite(LED2, LOW);
+                                      digitalWrite(LED3, HIGH);
+                                      digitalWrite(LED4, HIGH);
+                                       break;
+                                    case 14:
+                                      digitalWrite(LED1, LOW);
+                                      digitalWrite(LED2, HIGH);
+                                      digitalWrite(LED3, HIGH);
+                                      digitalWrite(LED4, HIGH);
+                                       break;
+                                    case 15:
+                                      digitalWrite(LED1, HIGH);
+                                      digitalWrite(LED2, HIGH);
+                                      digitalWrite(LED3, HIGH);
+                                      digitalWrite(LED4, HIGH);
+                                       
+                                      break;
+                                  }                          
+delay(500);
+}
+
+void lucesContador2 (){
+  
+                    switch (cont) {
+                                    case 1:
+                                      digitalWrite(LED1, HIGH);
+                                      digitalWrite(LED2, LOW);
+                                      digitalWrite(LED3, LOW);
+                                      digitalWrite(LED4, LOW);
+                                      break;
+                                    case 2:
+                                      digitalWrite(LED1, LOW);
+                                      digitalWrite(LED2, HIGH);
+                                      digitalWrite(LED3, LOW);
+                                      digitalWrite(LED4, LOW);
+                                      break;
+                                    case 3:
+                                      digitalWrite(LED1, LOW);
+                                      digitalWrite(LED2, LOW);
+                                      digitalWrite(LED3, HIGH);
+                                      digitalWrite(LED4, LOW);
+                                      break;
+                                    case 4:
+                                      digitalWrite(LED1, LOW);
+                                      digitalWrite(LED2, LOW);
+                                      digitalWrite(LED3, LOW);
+                                      digitalWrite(LED4, HIGH);
+                                      break;
+                                   
+                                  }                          
+delay(500);
+}
